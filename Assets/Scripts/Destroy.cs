@@ -9,15 +9,33 @@ public class Destroy : MonoBehaviour
     public GameObject player;
     public GameObject platformPrefab;
     public GameObject springPrefab;
+    public GameObject cloudPrefab;
+    public GameObject deathPrefab;
     private GameObject myPlat;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (Random.Range(1, 6) > 1) {
-            myPlat = (GameObject) Instantiate(platformPrefab, new Vector2(Random.Range(-5.5f, 5.5f), player.transform.position.y + (14 + Random.Range(0.5f, 1f))), Quaternion.identity);
-        }
-        else {
-            myPlat = (GameObject) Instantiate(springPrefab, new Vector2(Random.Range(-5.5f, 5.5f), player.transform.position.y + (14 + Random.Range(0.5f, 1f))), Quaternion.identity);    
+        if (!other.gameObject.tag.Equals("Death"))
+        {
+            int random = Random.Range(1, 10);
+            switch (random)
+            {
+                default:
+                    myPlat = (GameObject) Instantiate(platformPrefab, new Vector2(Random.Range(-5.5f, 5.5f), player.transform.position.y + (14 + Random.Range(0.2f, 1f))), Quaternion.identity);
+                    break;
+                case 1:
+                    myPlat = (GameObject) Instantiate(springPrefab, new Vector2(Random.Range(-5.5f, 5.5f), player.transform.position.y + (14 + Random.Range(0.2f, 1f))), Quaternion.identity);
+                    break;
+                case 2:
+                    myPlat = (GameObject) Instantiate(cloudPrefab, new Vector2(Random.Range(-5.5f, 5.5f), player.transform.position.y + (14 + Random.Range(0.2f, 1f))), Quaternion.identity);
+                    break;
+                case 3:
+                    myPlat = (GameObject) Instantiate(deathPrefab, new Vector2(Random.Range(-5.5f, 5.5f), player.transform.position.y + (14 + Random.Range(0.2f, 1f))), Quaternion.identity);
+                    myPlat = (GameObject) Instantiate(platformPrefab, new Vector2(Random.Range(-5.5f, 5.5f), player.transform.position.y + (14 + Random.Range(0.2f, 1f))), Quaternion.identity);
+                    
+                    break;
+
+            }
         }
         Destroy(other.gameObject);
     }
